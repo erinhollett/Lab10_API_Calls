@@ -1,3 +1,6 @@
+// Task 1: API Interaction Using GET Requests
+
+//Handle errors and display an error message on the page
 document.getElementById('fetchDataOne').addEventListener('click', function() {
   fetch('https://jsonplaceholder.typicode.com/posts/1')
       .then(response => {
@@ -10,12 +13,13 @@ document.getElementById('fetchDataOne').addEventListener('click', function() {
           console.log(post);
           displayPost(post);
       })
-      .catch(error => console.error('Error fetching data:', error));
-  });
+      .catch (error => {
+        document.getElementById('errorMessage').textContent = 'Failed to load data: ' + error.message;
+      });
+});
 
+// Displaying the fetched data dynamically on website
 function displayPost(post) {
   document.getElementById('postTitle').textContent = post.title;
   document.getElementById('postBody').textContent = post.body;
-  document.getElementById('postId').textContent = "Post #" + post.id;
-  document.getElementById('postUserId').textContent = "Posted by user #" + post.userId;
 }
