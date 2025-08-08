@@ -51,3 +51,57 @@ function displayPost2(post) {
   document.getElementById('postTitle2').textContent = post.title;
   document.getElementById('postBody2').textContent = post.body;
 }
+
+// Task 3: Send Data Using POST
+document.getElementById('postForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Getting the inputted values
+  const title = document.getElementById('postTitle').value;
+  const body = document.getElementById('postBody').value;
+
+  // Adding form validation
+  if (!title || !body) {
+    document.getElementById('status').textContent = "Please fill out both fields before submitting";
+    return;
+  }
+
+  // Fetch request with the inputted values
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        title,
+        body
+      })
+    })
+    // Error handling
+    .then(response => {
+      if (!response.ok) {
+        throw new Error (`HTTP error. Status: ${response.status}`);
+      }
+      // Get the server response as a json file
+      return response.json();
+    })
+    .then(post => {
+      console.log('Server responded with:', post); // for debugging (delete later)
+
+      // Confirmation message
+      document.getElementById('status').textContent = '';
+      document.getElementById('status').textContent = 'Post was submitted successfully';
+      
+      // Display the posted form
+      displayJSONPost(post);
+    })
+    // Confirmation message (if there's an error)
+    .catch(error => {
+      document.getElementById('status').textContent = 'Error: ' + error.message;
+  })
+})
+
+// Displaying the fetched data dynamically on website
+function displayJSONPost(post) {
+  document.getElementById('responseMsg').textContent = 'Here is your submitted post from id: ' + post.id;
+  document.getElementById('jsonTitle').textContent = post.title;
+  document.getElementById('jsonBody').textContent = post.body;
+}

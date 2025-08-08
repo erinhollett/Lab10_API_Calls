@@ -12,13 +12,33 @@
   <p id="errorMessage1"></p>
   <p id="errorMessage2"></p>
 
-  <div>
+  <div id="post1">
     <h2 id="postTitle1"></h2>
     <p id="postBody1"></p>
   </div>
-  <div>
+  <div id="post2">
     <h2 id="postTitle2"></h2>
-    <p id="postBody2"
+    <p id="postBody2"></p>
+  </div>
+
+  <h1>Create a Post</h1>
+
+  <form id="postForm">
+    <label for="postTitle" required>Post Title:</label><br>
+    <input type="text" id="postTitle" name="postTitle"><br>
+
+    <label for="postBody">Body:</label><br>
+    <textarea id="postBody" name="postBody" required></textarea><br>
+
+    <button type="submit" id="post">Publish</button>
+
+    <p id="status"></p>
+  </form>
+
+  <div id="responseData">
+    <p id="responseMsg"></p>
+    <h2 id="jsonTitle"></h2>
+    <p id="jsonBody"></p>
   </div>
 
   <script src="script.js"></script>
