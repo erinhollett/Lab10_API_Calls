@@ -44,7 +44,7 @@ document.getElementById('fetchData2').addEventListener('click', function() {
                 displayPost2(post);
             } else {
                 console.error('Error fetching data:', xhr.statusText);
-                document.getElementById('errorMessage2').textContent = 'Failed to load data: ' + (xhr.statusText || 'Unknown error');
+                document.getElementById('errorMessage2').textContent = 'Network error: could not reach server.'
             }
         }
     };
