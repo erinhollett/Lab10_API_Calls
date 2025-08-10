@@ -1,3 +1,8 @@
+// Hide the update form at the beginning:
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('updateForm').style.display = 'none';
+});
+
 // Task 1: API Interaction Using GET Requests
 
 //Handle errors and display an error message on the page
@@ -62,10 +67,9 @@ document.getElementById('postForm').addEventListener('submit', function(e) {
 
   // Adding form validation
   if (!title || !body) {
-    document.getElementById('status').textContent = "Please fill out both fields before submitting";
+    document.getElementById('status').textContent = "Please fill out all fields before submitting";
     return;
   }
-
   // Fetch request with the inputted values
   fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
@@ -89,6 +93,11 @@ document.getElementById('postForm').addEventListener('submit', function(e) {
       // Confirmation message
       document.getElementById('status').textContent = '';
       document.getElementById('status').textContent = 'Post was submitted successfully';
+
+      document.getElementById('updateID').value = post.id; 
+      document.getElementById('updateTitle').value = post.title;
+      document.getElementById('updateBody').value = post.body;
+      document.getElementById('updateForm').style.display = 'block';
       
       // Display the posted form
       displayJSONPost(post);
@@ -97,6 +106,63 @@ document.getElementById('postForm').addEventListener('submit', function(e) {
     .catch(error => {
       document.getElementById('status').textContent = 'Error: ' + error.message;
   })
+})
+
+// Task 4: Update Data Using PUT
+document.getElementById('updateForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const updateID = document.getElementById('updateID').value.trim();
+  const title = document.getElementById('updateTitle').value.trim();
+  const body  = document.getElementById('updateBody').value.trim();
+  const updateStatus2 = document.getElementById('updateStatus');
+
+  const id = Number(updateID);
+  // Validate id is an integer and above 0
+  if (!Number.isInteger(id) || id <= 0) {
+    updateStatus2.textContent = 'Please enter a valid positive number ID';
+    return;
+  }
+  // Validate title and body is filled in
+  if (!title || !body) {
+    updateStatus2.textContent = 'Please fill out title and body.';
+    return;
+  }
+
+  const xhr = new XMLHttpRequest();
+  const url = `https://jsonplaceholder.typicode.com/posts/${encodeURIComponent(id)}`;
+  xhr.open('PUT', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        try {
+          const updated = JSON.parse(xhr.responseText);
+          updateStatus2.textContent = 'Update successful.';
+
+          document.getElementById('responseMsg').textContent = 'Here is your UPDATED post from id: ' + updated.id;
+          document.getElementById('jsonTitle').textContent = updated.title;
+          document.getElementById('jsonBody').textContent = updated.body;
+        } catch {
+          updateStatus2.textContent = 'Update succeeded but response was not JSON.';
+        }
+      } else {
+        let msg = xhr.statusText || `HTTP ${xhr.status}`;
+        try {
+          const err = JSON.parse(xhr.responseText);
+          msg = err?.message || msg;
+        } catch {}
+        updateStatus2.textContent = 'Error updating: ' + msg;
+      }
+    }
+  };
+
+  xhr.onerror = function () {
+    updateStatus2.textContent = 'Network error: could not reach server.';
+  };
+
+  xhr.send(JSON.stringify({ title, body }));
 })
 
 // Displaying the fetched data dynamically on website

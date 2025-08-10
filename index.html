@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Lab 10: API Calls in JavaScript</title>
 </head>
 <body>
@@ -40,6 +41,21 @@
     <h2 id="jsonTitle"></h2>
     <p id="jsonBody"></p>
   </div>
+
+  <form id="updateForm">
+    <label for="updateID">Update ID:</label>
+    <input id="updateID" required>
+
+    <label for="updateTitle">Update Title:</label>
+    <input id="updateTitle" required>
+
+    <label for="updateBody">Update Body:</label>
+    <textarea id="updateBody" required></textarea>
+
+    <button type="submit" id="update">Update Post</button>
+
+    <p id="updateStatus"></p>
+  </form>
 
   <script src="script.js"></script>
 </body>
