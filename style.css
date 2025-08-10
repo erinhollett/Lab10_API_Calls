@@ -1,0 +1,79 @@
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background: #fdfdfd;
+  line-height: 1.6;
+  margin: 0;
+  width: min(900px, 92vw);
+  padding: 24px;
+  margin-inline: auto; /* centers the column */
+}
+
+/* Top buttons row */
+body > button {
+  background: #f0f0ff;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 8px 16px 0;
+}
+body > button:hover { background: #e2e2ff; }
+
+/* Headings and text rhythm */
+h1, h2 { color: #223366; font-weight: 500; margin: 18px 0 10px; }
+p { margin: 8px 0; }
+
+form {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+label {
+  display: block;  
+  font-weight: 600;
+  margin: 8px 0 6px;
+}
+
+/* Inputs */
+input:not([type="submit"]):not([type="button"]),
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* Form buttons centered */
+form button {
+  display: block;
+  margin: 8px auto 0;
+  background: #f0f0ff;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+form button:hover { background: #e2e2ff; }
+
+/* Status / errors */
+#errorMessage1, #errorMessage2, #status, #updateStatus {
+  color: #a33;
+  margin-top: 6px;
+}
+
+/* Displayed post area */
+#responseData {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #ddd;
+}
+#responseMsg { font-weight: 600; color: #223366; margin-top: 8px; }
+#jsonTitle { font-size: 20px; margin: 6px 0 4px; }
+#jsonBody { white-space: pre-wrap; }
